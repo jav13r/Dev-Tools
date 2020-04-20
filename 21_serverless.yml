@@ -1,0 +1,27 @@
+# install serverless framework
+#
+# ansible-playbook 21_serverless.yml
+
+---
+
+- hosts: localhost
+
+  vars:
+    FILE: "serverless.sh"
+    DEST: "/tmp/{{FILE}}"
+
+  tasks:
+
+  - name: download installer
+    get_url:
+      url: https://slss.io/install
+      dest: "{{DEST}}"
+      mode: 0755
+
+  - name: install serverless
+    shell: "{{DEST}}"
+
+  - name: remove file temp
+    file:
+      path: "{{DEST}}"
+      state: absent
