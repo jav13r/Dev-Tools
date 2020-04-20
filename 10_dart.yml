@@ -1,0 +1,16 @@
+# Install language dart with homebrew
+#
+# ansible-playbook 10_dart.yml
+
+---
+
+- hosts: localhost
+
+  tasks:
+
+  - name: install dart stable
+    homebrew:
+      name: "dart"
+      update_homebrew: yes
+      state: present
+    connection: local

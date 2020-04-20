@@ -1,0 +1,24 @@
+# Install nodejs with homebrew
+#
+# ansible-playbook 20_node.yml
+
+---
+
+- hosts: localhost
+  connection: local
+
+  tasks:
+
+    - name: install nodejs
+      homebrew:
+        name: "node@12"
+        update_homebrew: yes
+        state: present
+
+    - lineinfile:
+        path: "~/{{item}}"
+        line: "export PATH=\"/usr/local/opt/node@12/bin:$PATH\""
+      with_items:
+        - .bashrc
+        - .zshrc
+
