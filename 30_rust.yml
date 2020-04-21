@@ -1,0 +1,39 @@
+# install rust
+#
+# ansible-playbook 30_rust.yml --extra-vars "USER=$(whoami)"
+
+---
+
+- hosts: localhost
+  connection: local
+
+  vars:
+    FILE: "rust.sh"
+    HOME: "Users/{{USER}}"
+    DEST: "/tmp/{{FILE}}"
+
+  tasks:
+
+    - name: download installer
+      get_url:
+        url: https://sh.rustup.rs
+        dest: "{{DEST}}"
+        mode: 0755
+
+    - name: install rust
+      shell: "{{DEST}} -y"
+
+    - name: remove file temp
+      file:
+        path: "{{DEST}}"
+        state: absent
+
+    - lineinfile:
+        path: "~/{{item}}"
+        line: "export PATH=\"{{HOME}}/.cargo/bin:$PATH\""
+      with_items:
+        - .bashrc
+        - .zshrc
+
+    - name: reload terminal session
+      shell: "source {{HOME}}/.cargo/env"
