@@ -21,4 +21,5 @@
       with_items:
         - .bashrc
         - .zshrc
+      failed_when: false
 

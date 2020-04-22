@@ -34,6 +34,7 @@
       with_items:
         - .bashrc
         - .zshrc
+      failed_when: false
 
     - name: reload terminal session
       shell: "source {{HOME}}/.cargo/env"

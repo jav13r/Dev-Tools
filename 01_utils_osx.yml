@@ -1,0 +1,58 @@
+# homebrew packages utils
+#
+# ansible-playbook 01_utils_osx.yml (--tags=brew or --skip-tags=brew,cask)
+
+---
+
+- hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    homebrew_taps:
+      - homebrew/cask-drivers
+
+    homebrew_cask_packages:
+      - dbeaver-community
+
+    homebrew_packages:
+      - { name: ansible }
+      - { name: awscli }
+      - { name: htop-osx }
+      - { name: jq }
+      - { name: git }
+      - { name: wget }
+      - { name: zsh }
+      - { name: vim }
+      - { name: gnu-tar }
+
+  tasks:
+
+    - name: install taps of homebrew
+      homebrew_tap: tap="{{ item }}" state=present
+      with_items: "{{ homebrew_taps }}"
+      tags:
+        - cask
+
+    - name: update homebrew
+      homebrew: 
+        update_homebrew: yes
+      tags:
+        - brew
+        - cask
+
+    - name: install homebrew cask packages
+      homebrew_cask: name="{{ item }}" state=present
+      with_items: "{{ homebrew_cask_packages }}"
+      ignore_errors: true
+      tags:
+        - cask
+
+    - name: install homebrew packages
+      homebrew:
+        name: "{{ item.name }}"
+        state: "{{ item.state|default('latest') }}"
+        install_options: "{{ item.install_options|default() }}"
+      with_items: "{{ homebrew_packages }}"
+      tags:
+        - brew
