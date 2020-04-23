@@ -11,9 +11,11 @@
   vars:
     homebrew_taps:
       - homebrew/cask-drivers
+      - caskroom/cask
 
     homebrew_cask_packages:
       - dbeaver-community
+      - virtualbox
 
     homebrew_packages:
       - { name: ansible }
