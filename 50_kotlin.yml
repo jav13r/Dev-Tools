@@ -1,0 +1,17 @@
+# install kotlin
+#
+# ansible-playbook 50_kotlin.yml
+
+---
+
+- hosts: localhost
+
+  tasks:
+
+    - name: install kotlin
+      homebrew:
+        name: "kotlin"
+        update_homebrew: yes
+        state: present
+      connection: local
+
