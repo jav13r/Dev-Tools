@@ -9,14 +9,14 @@
   gather_facts: false
 
   vars:
-    homebrew_taps:
+    HOMEBREW_TAPS:
       - homebrew/cask-drivers
 
-    homebrew_cask_packages:
+    HOMEBREW_CASK_PACKAGES:
       - dbeaver-community
       - virtualbox
 
-    homebrew_packages:
+    HOMEBREW_PACKAGES:
       - { name: ansible }
       - { name: awscli }
       - { name: htop-osx }
@@ -35,7 +35,7 @@
 
     - name: install taps of homebrew
       homebrew_tap: tap="{{ item }}" state=present
-      with_items: "{{ homebrew_taps }}"
+      with_items: "{{ HOMEBREW_TAPS }}"
       tags:
         - cask
 
@@ -48,7 +48,7 @@
 
     - name: install homebrew cask packages
       homebrew_cask: name="{{ item }}" state=present
-      with_items: "{{ homebrew_cask_packages }}"
+      with_items: "{{ HOMEBREW_CASK_PACKAGES }}"
       ignore_errors: true
       tags:
         - cask
@@ -58,7 +58,7 @@
         name: "{{ item.name }}"
         state: "{{ item.state|default('latest') }}"
         install_options: "{{ item.install_options|default() }}"
-      with_items: "{{ homebrew_packages }}"
+      with_items: "{{ HOMEBREW_PACKAGES }}"
       tags:
         - brew
 

@@ -9,9 +9,11 @@
   vars:
     DPX_VERSION: 1.2.2
     FILE: "dapperdox-{{ DPX_VERSION }}.darwin-amd64"
-    DEST: "/tmp/{{ FILE }}"
+    DEST: "{{ CACHE_DIR }}/{{ FILE }}"
 
   tasks:
+
+  - include_tasks: inc/cache.yml
 
   - name: download installer
     get_url:
@@ -21,7 +23,7 @@
   - name: unarchive
     unarchive: 
       src:        "{{ DEST }}.tgz"
-      dest:       "/tmp/"
+      dest:       "{{ CACHE_DIR }}"
       creates:    "{{ DEST }}"
       remote_src: yes
 

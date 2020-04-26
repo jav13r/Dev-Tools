@@ -1,0 +1,6 @@
+
+
+- name: create directory cache
+  file:
+    path: "{{ CACHE_DIR }}"
+    state: directory

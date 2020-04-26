@@ -8,20 +8,17 @@
 
   vars:
     FILE: "serverless.sh"
-    DEST: "/tmp/{{FILE}}"
+    DEST: "{{ CACHE_DIR }}/{{ FILE }}"
 
   tasks:
+
+  - include_tasks: inc/cache.yml 
 
   - name: download installer
     get_url:
       url: https://slss.io/install
-      dest: "{{DEST}}"
+      dest: "{{ DEST }}"
       mode: 0755
 
   - name: install serverless
-    shell: "{{DEST}}"
-
-  - name: remove file temp
-    file:
-      path: "{{DEST}}"
-      state: absent
+    shell: "{{ DEST }}"

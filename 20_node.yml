@@ -16,7 +16,7 @@
         state: present
 
     - lineinfile:
-        path: "~/{{item}}"
+        path: "~/{{ item }}"
         line: "export PATH=\"/usr/local/opt/node@12/bin:$PATH\""
       with_items:
         - .bashrc

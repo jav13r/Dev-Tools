@@ -9,32 +9,29 @@
 
   vars:
     FILE: "rust.sh"
-    HOME: "Users/{{USER}}"
-    DEST: "/tmp/{{FILE}}"
+    HOME: "Users/{{ USER }}"
+    DEST: "{{ CACHE_DIR }}/{{ FILE }}"
 
   tasks:
+
+    - include_tasks: inc/cache.yml 
 
     - name: download installer
       get_url:
         url: https://sh.rustup.rs
-        dest: "{{DEST}}"
+        dest: "{{ DEST }}"
         mode: 0755
 
     - name: install rust
-      shell: "{{DEST}} -y"
-
-    - name: remove file temp
-      file:
-        path: "{{DEST}}"
-        state: absent
+      shell: "{{ DEST }} -y"
 
     - lineinfile:
-        path: "~/{{item}}"
-        line: "export PATH=\"{{HOME}}/.cargo/bin:$PATH\""
+        path: "~/{{ item }}"
+        line: "export PATH=\"{{ HOME }}/.cargo/bin:$PATH\""
       with_items:
         - .bashrc
         - .zshrc
       failed_when: false
 
     - name: reload terminal session
-      shell: "source {{HOME}}/.cargo/env"
+      shell: "source {{ HOME }}/.cargo/env"
