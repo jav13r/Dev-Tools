@@ -26,6 +26,7 @@
       - { name: zsh }
       - { name: vim }
       - { name: gnu-tar }
+      - { name: tldr }
 
   tasks:
 
