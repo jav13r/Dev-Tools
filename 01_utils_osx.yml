@@ -28,6 +28,9 @@
       - { name: gnu-tar }
       - { name: tldr }
 
+    export_paths:
+      - PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+
   tasks:
 
     - name: install taps of homebrew
@@ -58,3 +61,24 @@
       with_items: "{{ homebrew_packages }}"
       tags:
         - brew
+
+    - name: add path bashrc
+      lineinfile:
+        path: "~/.bashrc"
+        line: "export {{ item }}"
+      with_items: "{{ export_paths }}"
+      failed_when: false
+
+    - name: add path zshrc
+      lineinfile:
+        path: "~/.zshrc"
+        line: "export {{ item }}"
+      with_items: "{{ export_paths }}"
+      failed_when: false
+
+    - name: reload terminal session
+      shell: "source ~/{{ item }}"
+      with_items:
+        - .bashrc
+        - .zshrc
+      failed_when: false
