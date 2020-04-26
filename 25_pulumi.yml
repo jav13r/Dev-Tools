@@ -1,0 +1,55 @@
+# install pulumi
+#
+# ansible-playbook 25_pulumi.yml
+
+
+---
+
+- hosts: localhost
+
+  vars:
+    VERSION: v2.0.0
+
+  tasks:
+
+    - include_tasks: inc/cache.yml
+
+    - name: download
+      get_url:
+        url: "https://get.pulumi.com/releases/sdk/pulumi-{{ VERSION }}-darwin-x64.tar.gz"
+        dest: "{{ CACHE_DIR }}/pulumi-{{ VERSION }}.tar.gz"
+        mode: 0777
+
+    - name: create directory
+      file:
+        path: "{{ CACHE_DIR }}/pulumi-{{ VERSION }}"
+        state: directory
+        mode: 0777
+
+    - name: extract files
+      unarchive:
+        src:  "{{ CACHE_DIR }}/pulumi-{{ VERSION }}.tar.gz"
+        dest: "{{ CACHE_DIR }}/pulumi-{{ VERSION }}"
+        remote_src: yes
+
+    - name: copy files
+      copy:
+        src:  "{{ CACHE_DIR }}/pulumi-{{ VERSION }}/pulumi/{{ item }}"
+        dest: "/usr/local/bin/{{ item }}"
+        remote_src: yes
+        mode: 0755
+      with_items:
+        - pulumi
+        - pulumi-language-go
+        - pulumi-language-nodejs
+        - pulumi-language-python
+
+    - name: remove old installation
+      file:
+        state: absent
+        path: "/usr/bin/{{item}}"
+      with_items:
+        - pulumi
+        - pulumi-language-go
+        - pulumi-language-nodejs
+        - pulumi-language-python
