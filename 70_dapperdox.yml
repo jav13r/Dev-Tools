@@ -1,0 +1,33 @@
+# install dapperdox
+#
+# ansible-playbook 70_dapper
+
+---
+
+- hosts: localhost
+
+  vars:
+    DPX_VERSION: 1.2.2
+    FILE: "dapperdox-{{ DPX_VERSION }}.darwin-amd64"
+    DEST: "/tmp/{{ FILE }}"
+
+  tasks:
+
+  - name: download installer
+    get_url:
+      url: "https://github.com/DapperDox/dapperdox/releases/download/v{{ DPX_VERSION }}/{{ FILE }}.tgz"
+      dest: "{{ DEST }}.tgz"
+
+  - name: unarchive
+    unarchive: 
+      src:        "{{ DEST }}.tgz"
+      dest:       "/tmp/"
+      creates:    "{{ DEST }}"
+      remote_src: yes
+
+  - name: copy file
+    copy:
+      src: "{{ DEST }}/dapperdox"
+      dest: /usr/local/bin
+      mode: 0755
+      remote_src: yes
