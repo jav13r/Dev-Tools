@@ -1,0 +1,30 @@
+# install elixir language
+#
+# ansible-playbook 80_elixir.yml
+
+---
+
+- hosts: localhost
+  connection: local
+
+  tasks:
+    - name: install elixir
+      homebrew:
+        name: "elixir"
+        update_homebrew: yes
+        state: present
+
+    - lineinfile:
+        path: "~/{{ item }}"
+        line: "export PATH=\"$PATH:/path/to/elixir/bin\""
+      with_items:
+        - .bashrc
+        - .zshrc
+      failed_when: false
+
+    - name: reload terminal session
+      shell: "source ~/{{ item }}"
+      with_items:
+        - .bashrc
+        - .zshrc
+      failed_when: false
