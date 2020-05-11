@@ -27,6 +27,7 @@
       - { name: vim }
       - { name: gnu-tar }
       - { name: tldr }
+      - { name: xargs }
 
     export_paths:
       - PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
