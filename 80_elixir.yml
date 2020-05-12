@@ -4,8 +4,7 @@
 
 ---
 
-- hosts: local
-  connection: local
+- hosts: localhost
 
   tasks:
     - name: install elixir
