@@ -15,6 +15,7 @@
     HOMEBREW_CASK_PACKAGES:
       - dbeaver-community
       - virtualbox
+      - docker
 
     HOMEBREW_PACKAGES:
       - { name: ansible }

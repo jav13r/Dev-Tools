@@ -4,7 +4,7 @@
 
 ---
 
-- hosts: localhost
+- hosts: local
   become: false
 
   vars:
@@ -16,7 +16,7 @@
 
   tasks:
 
-  - include_tasks: inc/basic.yml
+  - include_tasks: inc/cache.yml
 
   - set_fact:
       OS: darwin
@@ -24,7 +24,7 @@
 
   - name: create directory
     file: 
-      path:  "{{ item }}"
+      path: "{{ item }}"
       state: directory
       mode: 0777
     with_items:
