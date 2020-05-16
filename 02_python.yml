@@ -1,0 +1,20 @@
+# install python
+#
+# ansible-playbook 02_python.yml
+
+---
+
+- hosts: localhost  
+  become: false
+
+  vars:
+    PYTHON_LIBS: 
+      - boto
+      - boto3
+      - botocore
+
+  tasks:
+
+  - name: install python3 libs
+    pip:
+      name: "{{PYTHON_LIBS}}"

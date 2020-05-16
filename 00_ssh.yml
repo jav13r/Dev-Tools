@@ -12,8 +12,8 @@
     GROUP: "{{ USER }}"
 
   tasks:
-
   - set_fact:
+
       HOME: "/Users/{{ USER }}"
       GROUP: "staff"
     when: ansible_facts["os_family"] == "Darwin"

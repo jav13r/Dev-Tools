@@ -18,7 +18,7 @@
         name: visual-studio-code
         state: present
 
-    - name: instalar plugins
+    - name: install plugins
       command: "code --install-extension {{item}}"
       with_items:
         - vscoss.vscode-ansible
