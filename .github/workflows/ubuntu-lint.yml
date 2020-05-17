@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Lint palybooks
+      - name: Lint playbooks
         uses: ansible/ansible-lint-action@master
         with:
           targets: |

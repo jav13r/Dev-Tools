@@ -13,14 +13,13 @@
 
   tasks:
   - set_fact:
-
       HOME: "/Users/{{ USER }}"
       GROUP: "staff"
     when: ansible_facts["os_family"] == "Darwin"
 
   - name: install ssh
     apt:
-      name: 
+      name:
         - openssh-server
     when: ansible_facts["os_family"] != "Darwin"
 
@@ -45,13 +44,13 @@
       key: "{{ lookup('file', '{{ HOME }}/.ssh/id_rsa_local.pub') }}"
 
   - name: create directory
-    file: 
+    file:
       path: "{{ item }}"
       state: directory
     with_items:
       - /etc/ansible
 
   - name: hosts
-    template: 
+    template:
       src: hosts.j2
       dest: /etc/ansible/hosts
