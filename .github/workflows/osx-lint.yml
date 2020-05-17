@@ -26,5 +26,5 @@ jobs:
 
       - name: Lint playbook
         run: |
-          ansible-playbook 00_ssh.yml --syntax-check
-          ansible-lint 00_ssh.yml
+          ansible-playbook ./*.yml --syntax-check
+          ansible-lint ./*.yml
