@@ -1,0 +1,20 @@
+name: Ansible-lint
+
+on: push
+
+jobs:
+
+  builds:
+
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Lint palybooks
+        uses: ansible/ansible-lint-action@master
+        with:
+          targets: |
+            00_ssh.yml
+          override-deps: |
+            ansible==2.8
