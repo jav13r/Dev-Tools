@@ -1,4 +1,4 @@
-name: Ansible-lint
+name: Ansible-lint-ubunut
 
 on:
   push:

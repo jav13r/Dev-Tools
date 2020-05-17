@@ -1,4 +1,4 @@
-name: Ansible-lint
+name: Ansible-lint-osx
 
 on:
   push:
