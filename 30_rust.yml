@@ -14,7 +14,7 @@
 
   tasks:
 
-    - include_tasks: inc/cache.yml 
+    - include_tasks: inc/cache.yml
 
     - name: download installer
       get_url:
@@ -23,9 +23,10 @@
         mode: 0755
 
     - name: install rust
-      shell: "{{ DEST }} -y"
+      command: "{{ DEST }} -y"
 
-    - lineinfile:
+    - name: set path variable
+      lineinfile:
         path: "~/{{ item }}"
         line: "export PATH=\"{{ HOME }}/.cargo/bin:$PATH\""
       with_items:

@@ -13,7 +13,8 @@
         update_homebrew: yes
         state: present
 
-    - lineinfile:
+    - name: set path variable
+      lineinfile:
         path: "~/{{ item }}"
         line: "export PATH=\"$PATH:/path/to/elixir/bin\""
       with_items:
@@ -22,7 +23,7 @@
       failed_when: false
 
     - name: reload terminal session
-      shell: "source ~/{{ item }}"
+      command: "source ~/{{ item }}"
       with_items:
         - .bashrc
         - .zshrc

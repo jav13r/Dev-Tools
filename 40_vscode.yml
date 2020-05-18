@@ -10,16 +10,16 @@
   tasks:
 
     - name: update homebrew
-      homebrew: 
+      homebrew:
         update_homebrew: yes
 
     - name: install visual studio code
-      homebrew_cask: 
+      homebrew_cask:
         name: visual-studio-code
         state: present
 
     - name: install plugins
-      command: "code --install-extension {{item}}"
+      command: "code --install-extension {{ item }}"
       with_items:
         - vscoss.vscode-ansible
         - ms-vscode.go

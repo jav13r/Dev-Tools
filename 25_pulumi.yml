@@ -48,7 +48,7 @@
     - name: remove old installation
       file:
         state: absent
-        path: "/usr/bin/{{item}}"
+        path: "/usr/bin/{{ item }}"
       with_items:
         - pulumi
         - pulumi-language-go

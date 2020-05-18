@@ -15,7 +15,8 @@
         update_homebrew: yes
         state: present
 
-    - lineinfile:
+    - name: set path variable
+      lineinfile:
         path: "~/{{ item }}"
         line: "export PATH=\"/usr/local/opt/node@12/bin:$PATH\""
       with_items:

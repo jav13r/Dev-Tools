@@ -12,7 +12,7 @@
 
   tasks:
 
-  - include_tasks: inc/cache.yml 
+  - include_tasks: inc/cache.yml
 
   - name: download installer
     get_url:

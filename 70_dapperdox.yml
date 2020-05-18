@@ -21,7 +21,7 @@
       dest: "{{ DEST }}.tgz"
 
   - name: unarchive
-    unarchive: 
+    unarchive:
       src:        "{{ DEST }}.tgz"
       dest:       "{{ CACHE_DIR }}"
       creates:    "{{ DEST }}"

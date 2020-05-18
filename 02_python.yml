@@ -4,11 +4,11 @@
 
 ---
 
-- hosts: localhost  
+- hosts: localhost
   become: false
 
   vars:
-    PYTHON_LIBS: 
+    PYTHON_LIBS:
       - boto
       - boto3
       - botocore
@@ -17,4 +17,4 @@
 
   - name: install python3 libs
     pip:
-      name: "{{PYTHON_LIBS}}"
+      name: "{{ PYTHON_LIBS }}"

@@ -43,7 +43,7 @@
         - cask
 
     - name: update homebrew
-      homebrew: 
+      homebrew:
         update_homebrew: yes
       tags:
         - brew
