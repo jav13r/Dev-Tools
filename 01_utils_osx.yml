@@ -79,9 +79,5 @@
       with_items: "{{ export_paths }}"
       failed_when: false
 
-    - name: reload terminal session
-      shell: "source ~/{{ item }}"
-      with_items:
-        - .bashrc
-        - .zshrc
-      failed_when: false
+    - name: reset ssh connection
+      meta: reset_connection

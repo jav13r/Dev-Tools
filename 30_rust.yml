@@ -5,7 +5,6 @@
 ---
 
 - hosts: localhost
-  connection: local
 
   vars:
     FILE: "rust.sh"
@@ -21,9 +20,11 @@
         url: https://sh.rustup.rs
         dest: "{{ DEST }}"
         mode: 0755
+      register: installer
 
     - name: install rust
       command: "{{ DEST }} -y"
+      changed_when: installer.changed == true
 
     - name: set path variable
       lineinfile:
@@ -32,7 +33,7 @@
       with_items:
         - .bashrc
         - .zshrc
-      failed_when: false
+      connection: local
 
-    - name: reload terminal session
-      shell: "source {{ HOME }}/.cargo/env"
+    - name: reset ssh connection
+      meta: reset_connection

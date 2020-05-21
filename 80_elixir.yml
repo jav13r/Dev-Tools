@@ -22,9 +22,5 @@
         - .zshrc
       failed_when: false
 
-    - name: reload terminal session
-      command: "source ~/{{ item }}"
-      with_items:
-        - .bashrc
-        - .zshrc
-      failed_when: false
+    - name: reset ssh connection
+      meta: reset_connection
