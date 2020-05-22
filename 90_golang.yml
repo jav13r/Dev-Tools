@@ -79,10 +79,6 @@
     connection: local
     changed_when: false
 
-
-  - debug:
-      msg: "{{ goget }}"
-
   - name: set path variable
     lineinfile:
       path: "~/{{ item }}"
