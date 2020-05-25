@@ -12,19 +12,12 @@
     DEST: "{{ CACHE_DIR }}/{{ FILE }}"
 
   tasks:
-
-    - include_tasks: inc/cache.yml
-
-    - name: download installer
-      get_url:
-        url: https://sh.rustup.rs
-        dest: "{{ DEST }}"
-        mode: 0755
-      register: installer
-
     - name: install rust
-      command: "{{ DEST }} -y"
-      changed_when: installer.changed == true
+      homebrew:
+        name: "rust"
+        update_homebrew: yes
+        state: present
+      connection: local
 
     - name: set path variable
       lineinfile:
@@ -34,6 +27,7 @@
         - .bashrc
         - .zshrc
       connection: local
+      failed_when: false
 
     - name: reset ssh connection
       meta: reset_connection
