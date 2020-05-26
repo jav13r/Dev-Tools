@@ -1,0 +1,19 @@
+# install kubernetes-cli
+#
+# ansible-playbook 95_kubectl.yml
+
+---
+
+- hosts: localhost
+
+  tasks:
+
+  - name: install kubectl
+    homebrew:
+      name: "kubernetes-cli"
+      update_homebrew: yes
+      state: present
+    connection: local
+
+  - name: reset ssh connection
+    meta: reset_connection
