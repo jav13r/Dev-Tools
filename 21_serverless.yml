@@ -22,4 +22,3 @@
 
   - name: install serverless
     command: "{{ DEST }}"
-    
