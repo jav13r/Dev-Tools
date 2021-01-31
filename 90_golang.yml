@@ -5,10 +5,10 @@
 ---
 
 - hosts: localhost
-  become: false
-
+  connection: local
+  
   vars:
-    GO: "1.13.8"
+    GO: "1.15.7"
     FILE: "{{ CACHE_DIR }}/go/go{{ GO }}.{{ OS }}-amd64.tar.gz"
     SRC:  "{{ CACHE_DIR }}/go/go{{ GO }}"
     DEST: "/usr/local/golang/{{ GO }}"

@@ -22,7 +22,7 @@
       command: "code --install-extension {{ item }}"
       with_items:
         - vscoss.vscode-ansible
-        - ms-vscode.go
+        - golang.go
         - davidanson.vscode-markdownlint
         - shd101wyy.markdown-preview-enhanced
         - ms-python.python

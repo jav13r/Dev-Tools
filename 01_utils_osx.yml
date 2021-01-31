@@ -13,31 +13,31 @@
       - homebrew/cask-drivers
 
     HOMEBREW_CASK_PACKAGES:
-      - dbeaver-community
-      - virtualbox
       - docker
 
     HOMEBREW_PACKAGES:
       - { name: awscli }
       - { name: htop-osx }
       - { name: jq }
-      - { name: git }
-      - { name: git-flow-avh }
-      - { name: wget }
-      - { name: zsh }
+      - { name: bash }
+      - { name: gnu-sed }
       - { name: vim }
       - { name: gnu-tar }
       - { name: tldr }
-      - { name: xargs }
+      - { name: findutils }
       - { name: fzf }
 
     export_paths:
-      - PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+      - GNUTAR="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+      - BASH="/usr/local/bin:$PATH"
+      - GNUSED="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
   tasks:
 
     - name: install taps of homebrew
-      homebrew_tap: tap="{{ item }}" state=present
+      homebrew_tap:
+        tap: "{{ item }}"
+        state: present
       with_items: "{{ HOMEBREW_TAPS }}"
       tags:
         - cask
@@ -50,7 +50,9 @@
         - cask
 
     - name: install homebrew cask packages
-      homebrew_cask: name="{{ item }}" state=present
+      homebrew_cask:
+        name: "{{ item }}"
+        state: present
       with_items: "{{ HOMEBREW_CASK_PACKAGES }}"
       ignore_errors: true
       tags:
@@ -71,6 +73,8 @@
         line: "export {{ item }}"
       with_items: "{{ export_paths }}"
       failed_when: false
+      tags:
+        - brew
 
     - name: add path zshrc
       lineinfile:
@@ -78,6 +82,11 @@
         line: "export {{ item }}"
       with_items: "{{ export_paths }}"
       failed_when: false
+      tags:
+        - brew
 
     - name: reset ssh connection
       meta: reset_connection
+      tags:
+        - brew
+        - cask
