@@ -43,12 +43,13 @@
       authorized_key:
         user: root
         state: present
-        key: "{{ lookup('file', '{{ HOME }}/.ssh/id_rsa_local.pub') }}"
+        key: "{{ lookup('file', lookup('vars','HOME') + '/.ssh/id_rsa_local.pub') }}"
 
     - name: create directory
       file:
         path: "{{ item }}"
         state: directory
+        mode: 0777
       with_items:
         - /etc/ansible
 
@@ -56,3 +57,4 @@
       template:
         src: hosts.j2
         dest: /etc/ansible/hosts
+        mode: 0777

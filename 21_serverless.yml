@@ -12,13 +12,14 @@
 
   tasks:
 
-  - include_tasks: inc/cache.yml
+    - include_tasks: inc/cache.yml
 
-  - name: download installer
-    get_url:
-      url: https://slss.io/install
-      dest: "{{ DEST }}"
-      mode: 0755
+    - name: download installer
+      get_url:
+        url: https://slss.io/install
+        dest: "{{ DEST }}"
+        mode: 0755
 
-  - name: install serverless
-    command: "{{ DEST }}"
+    - name: install serverless
+      command: "{{ DEST }}"
+      failed_when: false

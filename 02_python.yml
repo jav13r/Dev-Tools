@@ -12,9 +12,10 @@
       - boto
       - boto3
       - botocore
+      - ansible-lint
 
   tasks:
 
-  - name: install python3 libs
-    pip:
-      name: "{{ PYTHON_LIBS }}"
+    - name: install python3 libs
+      pip:
+        name: "{{ PYTHON_LIBS }}"

@@ -4,3 +4,4 @@
   file:
     path: "{{ CACHE_DIR }}"
     state: directory
+    mode: 0777
